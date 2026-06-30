@@ -11,6 +11,10 @@ const Login = () => {
 
   const handleEmailLogin = async (e) => {
     e.preventDefault();
+    if (!auth) {
+      setError('Firebase configuration is missing. Please set up .env.local with your keys.');
+      return;
+    }
     setError('');
     setLoading(true);
     try {
@@ -23,6 +27,10 @@ const Login = () => {
   };
 
   const handleGoogleLogin = async () => {
+    if (!auth) {
+      setError('Firebase configuration is missing. Please set up .env.local with your keys.');
+      return;
+    }
     setError('');
     setLoading(true);
     try {
