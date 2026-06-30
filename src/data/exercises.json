@@ -1,0 +1,42 @@
+[
+  {
+    "id": "ex1",
+    "name": "High-Intensity Interval Training (HIIT)",
+    "duration_options": [15, 30, 45],
+    "met_value": 8.0,
+    "goal_tags": ["loss", "maintain", "gain"],
+    "instructions": "Alternating short periods of intense anaerobic exercise with less intense recovery periods."
+  },
+  {
+    "id": "ex2",
+    "name": "Bodyweight Strength Circuit",
+    "duration_options": [20, 40, 60],
+    "met_value": 5.0,
+    "goal_tags": ["maintain", "gain"],
+    "instructions": "Pushups, squats, lunges, and planks. 45 seconds of work, 15 seconds of rest per exercise."
+  },
+  {
+    "id": "ex3",
+    "name": "Vinyasa Yoga Flow",
+    "duration_options": [30, 45, 60],
+    "met_value": 3.3,
+    "goal_tags": ["loss", "maintain", "gain"],
+    "instructions": "Continuous movement from one yoga posture to another, syncing breath with movement."
+  },
+  {
+    "id": "ex4",
+    "name": "Brisk Walking (Outdoor/Treadmill)",
+    "duration_options": [30, 45, 60],
+    "met_value": 4.3,
+    "goal_tags": ["loss", "maintain"],
+    "instructions": "Walking at a brisk pace (around 3.5 to 4 mph)."
+  },
+  {
+    "id": "ex5",
+    "name": "Core Burner",
+    "duration_options": [10, 15, 20],
+    "met_value": 3.8,
+    "goal_tags": ["loss", "maintain", "gain"],
+    "instructions": "Crunches, leg raises, Russian twists, and side planks. Continuous for the selected duration."
+  }
+]

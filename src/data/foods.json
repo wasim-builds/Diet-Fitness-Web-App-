@@ -1,0 +1,112 @@
+[
+  {
+    "id": "f1",
+    "name": "Chicken Breast (Cooked)",
+    "calories_per_100g": 165,
+    "protein": 31,
+    "carbs": 0,
+    "fat": 3.6,
+    "serving_multiplier": 1.5,
+    "serving_unit": "piece (150g)",
+    "veg_flag": false
+  },
+  {
+    "id": "f2",
+    "name": "White Rice (Cooked)",
+    "calories_per_100g": 130,
+    "protein": 2.7,
+    "carbs": 28,
+    "fat": 0.3,
+    "serving_multiplier": 1.5,
+    "serving_unit": "bowl (150g)",
+    "veg_flag": true
+  },
+  {
+    "id": "f3",
+    "name": "Broccoli (Boiled)",
+    "calories_per_100g": 35,
+    "protein": 2.4,
+    "carbs": 7.2,
+    "fat": 0.4,
+    "serving_multiplier": 1,
+    "serving_unit": "cup (100g)",
+    "veg_flag": true
+  },
+  {
+    "id": "f4",
+    "name": "Eggs (Boiled)",
+    "calories_per_100g": 155,
+    "protein": 13,
+    "carbs": 1.1,
+    "fat": 11,
+    "serving_multiplier": 0.5,
+    "serving_unit": "1 large egg (50g)",
+    "veg_flag": false
+  },
+  {
+    "id": "f5",
+    "name": "Lentils/Dal (Cooked)",
+    "calories_per_100g": 116,
+    "protein": 9,
+    "carbs": 20,
+    "fat": 0.4,
+    "serving_multiplier": 1.5,
+    "serving_unit": "bowl (150g)",
+    "veg_flag": true
+  },
+  {
+    "id": "f6",
+    "name": "Paneer (Cottage Cheese)",
+    "calories_per_100g": 265,
+    "protein": 14,
+    "carbs": 1.2,
+    "fat": 20,
+    "serving_multiplier": 1,
+    "serving_unit": "100g",
+    "veg_flag": true
+  },
+  {
+    "id": "f7",
+    "name": "Oats",
+    "calories_per_100g": 389,
+    "protein": 16.9,
+    "carbs": 66.3,
+    "fat": 6.9,
+    "serving_multiplier": 0.5,
+    "serving_unit": "1/2 cup (50g)",
+    "veg_flag": true
+  },
+  {
+    "id": "f8",
+    "name": "Almonds",
+    "calories_per_100g": 579,
+    "protein": 21,
+    "carbs": 22,
+    "fat": 50,
+    "serving_multiplier": 0.3,
+    "serving_unit": "handful (30g)",
+    "veg_flag": true
+  },
+  {
+    "id": "f9",
+    "name": "Banana",
+    "calories_per_100g": 89,
+    "protein": 1.1,
+    "carbs": 23,
+    "fat": 0.3,
+    "serving_multiplier": 1.2,
+    "serving_unit": "1 medium (120g)",
+    "veg_flag": true
+  },
+  {
+    "id": "f10",
+    "name": "Greek Yogurt",
+    "calories_per_100g": 59,
+    "protein": 10,
+    "carbs": 3.6,
+    "fat": 0.4,
+    "serving_multiplier": 1.5,
+    "serving_unit": "container (150g)",
+    "veg_flag": true
+  }
+]
