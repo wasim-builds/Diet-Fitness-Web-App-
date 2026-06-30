@@ -63,84 +63,86 @@ const Wizard = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-slate-50 px-4 py-8">
-      <div className="w-full max-w-md bg-white rounded-3xl shadow-xl p-8">
-        <div className="flex justify-between items-center mb-8">
-          <h1 className="text-2xl font-bold text-slate-800">Setup Profile</h1>
-          <span className="text-sm font-medium text-sky-500 bg-sky-50 px-3 py-1 rounded-full">Step {step} of 3</span>
+    <div className="flex flex-col items-center justify-center min-h-screen bg-[#0B1120] text-slate-50 selection:bg-green-500/30 px-4 py-8 relative">
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-green-500/5 rounded-full blur-[120px] pointer-events-none"></div>
+
+      <div className="w-full max-w-md glass-card rounded-[2rem] p-8 md:p-10 relative z-10">
+        <div className="flex justify-between items-center mb-10">
+          <h1 className="text-3xl font-extrabold text-white">Setup Profile</h1>
+          <span className="text-sm font-bold text-green-400 bg-green-500/20 border border-green-500/20 px-4 py-1.5 rounded-full">Step {step} of 3</span>
         </div>
 
-        {error && <div className="bg-red-50 text-red-600 p-3 rounded-lg text-sm mb-6">{error}</div>}
+        {error && <div className="bg-red-500/10 border border-red-500/30 text-red-400 p-4 rounded-xl text-sm mb-8">{error}</div>}
 
         <form onSubmit={step === 3 ? handleSubmit : (e) => { e.preventDefault(); nextStep(); }}>
           {step === 1 && (
-            <div className="space-y-4 animate-in fade-in slide-in-from-bottom-4 duration-500">
-              <h2 className="text-lg font-semibold text-slate-700 mb-4">Basic Information</h2>
-              <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">Gender</label>
-                <select name="gender" value={formData.gender} onChange={handleChange} className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-sky-500 bg-white">
-                  <option value="male">Male</option>
-                  <option value="female">Female</option>
+            <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <h2 className="text-xl font-bold text-white mb-2">Basic Information</h2>
+              <div className="space-y-2">
+                <label className="block text-sm font-medium text-slate-300">Gender</label>
+                <select name="gender" value={formData.gender} onChange={handleChange} className="w-full px-5 py-4 rounded-xl bg-[#0B1120]/60 border border-white/10 focus:outline-none focus:ring-2 focus:ring-green-500 text-white appearance-none">
+                  <option value="male" className="bg-[#0B1120]">Male</option>
+                  <option value="female" className="bg-[#0B1120]">Female</option>
                 </select>
               </div>
-              <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">Age (years)</label>
-                <input type="number" name="age" required min="10" max="120" value={formData.age} onChange={handleChange} className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-sky-500" placeholder="e.g. 25" />
+              <div className="space-y-2">
+                <label className="block text-sm font-medium text-slate-300">Age (years)</label>
+                <input type="number" name="age" required min="10" max="120" value={formData.age} onChange={handleChange} className="w-full px-5 py-4 rounded-xl bg-[#0B1120]/60 border border-white/10 focus:outline-none focus:ring-2 focus:ring-green-500 text-white placeholder-slate-500" placeholder="e.g. 25" />
               </div>
-              <button type="submit" className="w-full mt-6 bg-sky-500 text-white font-semibold py-3 rounded-xl hover:bg-sky-600 transition-colors">Next Step</button>
+              <button type="submit" className="w-full mt-8 bg-green-500 hover:bg-green-400 text-slate-950 font-extrabold py-4 rounded-xl transition-all shadow-[0_0_20px_rgba(34,197,94,0.2)] hover:shadow-[0_0_30px_rgba(34,197,94,0.4)] transform hover:-translate-y-0.5">Next Step</button>
             </div>
           )}
 
           {step === 2 && (
-            <div className="space-y-4 animate-in fade-in slide-in-from-bottom-4 duration-500">
-              <h2 className="text-lg font-semibold text-slate-700 mb-4">Body Measurements</h2>
-              <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">Height (cm)</label>
-                <input type="number" name="height" required min="100" max="250" value={formData.height} onChange={handleChange} className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-sky-500" placeholder="e.g. 175" />
+            <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <h2 className="text-xl font-bold text-white mb-2">Body Measurements</h2>
+              <div className="space-y-2">
+                <label className="block text-sm font-medium text-slate-300">Height (cm)</label>
+                <input type="number" name="height" required min="100" max="250" value={formData.height} onChange={handleChange} className="w-full px-5 py-4 rounded-xl bg-[#0B1120]/60 border border-white/10 focus:outline-none focus:ring-2 focus:ring-green-500 text-white placeholder-slate-500" placeholder="e.g. 175" />
               </div>
-              <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">Weight (kg)</label>
-                <input type="number" name="weight" required min="30" max="300" step="0.1" value={formData.weight} onChange={handleChange} className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-sky-500" placeholder="e.g. 70" />
+              <div className="space-y-2">
+                <label className="block text-sm font-medium text-slate-300">Weight (kg)</label>
+                <input type="number" name="weight" required min="30" max="300" step="0.1" value={formData.weight} onChange={handleChange} className="w-full px-5 py-4 rounded-xl bg-[#0B1120]/60 border border-white/10 focus:outline-none focus:ring-2 focus:ring-green-500 text-white placeholder-slate-500" placeholder="e.g. 70" />
               </div>
-              <div className="flex gap-4 mt-6">
-                <button type="button" onClick={prevStep} className="w-1/3 bg-slate-100 text-slate-700 font-semibold py-3 rounded-xl hover:bg-slate-200 transition-colors">Back</button>
-                <button type="submit" className="w-2/3 bg-sky-500 text-white font-semibold py-3 rounded-xl hover:bg-sky-600 transition-colors">Next Step</button>
+              <div className="flex gap-4 mt-8">
+                <button type="button" onClick={prevStep} className="w-1/3 glass-card bg-white/5 hover:bg-white/10 text-white font-bold py-4 rounded-xl border border-white/10 transition-colors">Back</button>
+                <button type="submit" className="w-2/3 bg-green-500 hover:bg-green-400 text-slate-950 font-extrabold py-4 rounded-xl transition-all shadow-[0_0_20px_rgba(34,197,94,0.2)] hover:shadow-[0_0_30px_rgba(34,197,94,0.4)] transform hover:-translate-y-0.5">Next Step</button>
               </div>
             </div>
           )}
 
           {step === 3 && (
-            <div className="space-y-4 animate-in fade-in slide-in-from-bottom-4 duration-500">
-              <h2 className="text-lg font-semibold text-slate-700 mb-4">Goals & Preferences</h2>
-              <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">Activity Level</label>
-                <select name="activityLevel" value={formData.activityLevel} onChange={handleChange} className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-sky-500 bg-white">
-                  <option value="sedentary">Sedentary (Office job, little exercise)</option>
-                  <option value="light">Lightly Active (1-3 days/week)</option>
-                  <option value="moderate">Moderately Active (3-5 days/week)</option>
-                  <option value="active">Very Active (6-7 days/week)</option>
+            <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <h2 className="text-xl font-bold text-white mb-2">Goals & Preferences</h2>
+              <div className="space-y-2">
+                <label className="block text-sm font-medium text-slate-300">Activity Level</label>
+                <select name="activityLevel" value={formData.activityLevel} onChange={handleChange} className="w-full px-5 py-4 rounded-xl bg-[#0B1120]/60 border border-white/10 focus:outline-none focus:ring-2 focus:ring-green-500 text-white appearance-none">
+                  <option value="sedentary" className="bg-[#0B1120]">Sedentary (Office job, little exercise)</option>
+                  <option value="light" className="bg-[#0B1120]">Lightly Active (1-3 days/week)</option>
+                  <option value="moderate" className="bg-[#0B1120]">Moderately Active (3-5 days/week)</option>
+                  <option value="active" className="bg-[#0B1120]">Very Active (6-7 days/week)</option>
                 </select>
               </div>
-              <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">Primary Goal</label>
-                <select name="goal" value={formData.goal} onChange={handleChange} className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-sky-500 bg-white">
-                  <option value="loss">Weight Loss</option>
-                  <option value="maintain">Maintain Weight</option>
-                  <option value="gain">Muscle/Weight Gain</option>
+              <div className="space-y-2">
+                <label className="block text-sm font-medium text-slate-300">Primary Goal</label>
+                <select name="goal" value={formData.goal} onChange={handleChange} className="w-full px-5 py-4 rounded-xl bg-[#0B1120]/60 border border-white/10 focus:outline-none focus:ring-2 focus:ring-green-500 text-white appearance-none">
+                  <option value="loss" className="bg-[#0B1120]">Weight Loss</option>
+                  <option value="maintain" className="bg-[#0B1120]">Maintain Weight</option>
+                  <option value="gain" className="bg-[#0B1120]">Muscle/Weight Gain</option>
                 </select>
               </div>
-              <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">Diet Preference</label>
-                <select name="dietType" value={formData.dietType} onChange={handleChange} className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-sky-500 bg-white">
-                  <option value="mixed">Mixed (Everything)</option>
-                  <option value="vegetarian">Vegetarian</option>
-                  <option value="eggetarian">Eggetarian</option>
-                  <option value="non-vegetarian">Non-Vegetarian</option>
+              <div className="space-y-2">
+                <label className="block text-sm font-medium text-slate-300">Diet Preference</label>
+                <select name="dietType" value={formData.dietType} onChange={handleChange} className="w-full px-5 py-4 rounded-xl bg-[#0B1120]/60 border border-white/10 focus:outline-none focus:ring-2 focus:ring-green-500 text-white appearance-none">
+                  <option value="mixed" className="bg-[#0B1120]">Mixed (Everything)</option>
+                  <option value="vegetarian" className="bg-[#0B1120]">Vegetarian</option>
+                  <option value="eggetarian" className="bg-[#0B1120]">Eggetarian</option>
+                  <option value="non-vegetarian" className="bg-[#0B1120]">Non-Vegetarian</option>
                 </select>
               </div>
-              <div className="flex gap-4 mt-6">
-                <button type="button" onClick={prevStep} disabled={loading} className="w-1/3 bg-slate-100 text-slate-700 font-semibold py-3 rounded-xl hover:bg-slate-200 transition-colors disabled:opacity-50">Back</button>
-                <button type="submit" disabled={loading} className="w-2/3 bg-sky-500 text-white font-semibold py-3 rounded-xl hover:bg-sky-600 transition-colors disabled:opacity-50">
+              <div className="flex gap-4 mt-8">
+                <button type="button" onClick={prevStep} disabled={loading} className="w-1/3 glass-card bg-white/5 hover:bg-white/10 text-white font-bold py-4 rounded-xl border border-white/10 transition-colors disabled:opacity-50">Back</button>
+                <button type="submit" disabled={loading} className="w-2/3 bg-green-500 hover:bg-green-400 text-slate-950 font-extrabold py-4 rounded-xl transition-all shadow-[0_0_20px_rgba(34,197,94,0.2)] hover:shadow-[0_0_30px_rgba(34,197,94,0.4)] transform hover:-translate-y-0.5 disabled:opacity-50">
                   {loading ? 'Saving...' : 'Finish Setup'}
                 </button>
               </div>

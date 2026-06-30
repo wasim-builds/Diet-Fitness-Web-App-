@@ -24,18 +24,22 @@ export const generateMealPlan = async (profile) => {
     - Daily Target Protein: ${profile.targets.protein}g
     
     You MUST return the output EXACTLY as a JSON array of 7 objects.
-    Each object must represent a day and follow this exact JSON schema:
+    For EACH meal type (breakfast, lunch, snack, dinner), you MUST provide an array of 3 different options so the user can choose what they want to eat.
+    Make sure the options reflect their goal (e.g. if goal is loss, include green tea/low cal options. If gain, include high protein/dense options).
+    
+    Follow this exact JSON schema for the array of 7 objects:
     [
       {
         "day": 1,
         "meals": {
-          "breakfast": {
-            "name": "String",
-            "items": [ { "name": "String", "amount": 1, "calories_per_100g": 100, "serving_multiplier": 1 } ]
-          },
-          "lunch": { ... },
-          "snack": { ... },
-          "dinner": { ... }
+          "breakfast": [
+            { "name": "Option 1 String", "items": [ { "name": "String", "amount": 1, "calories_per_100g": 100, "serving_multiplier": 1 } ] },
+            { "name": "Option 2 String", "items": [ ... ] },
+            { "name": "Option 3 String", "items": [ ... ] }
+          ],
+          "lunch": [ ...3 options... ],
+          "snack": [ ...3 options... ],
+          "dinner": [ ...3 options... ]
         }
       }
     ]
@@ -87,36 +91,120 @@ const generateStaticMealPlan = (profile) => {
 
   const getFood = (nameStr) => availableFoods.find(f => f.name.includes(nameStr)) || availableFoods[0];
 
+  // Dynamic Options Based on Goal
+  const getBreakfastOptions = () => {
+    const baseOpts = [
+      {
+        name: profile.dietType === 'vegetarian' ? 'Oats & Banana' : 'Eggs & Oats',
+        items: [
+          { ...getFood('Oats'), amount: 1 },
+          { ...getFood(profile.dietType === 'vegetarian' ? 'Banana' : 'Eggs'), amount: 1 }
+        ]
+      },
+      {
+        name: profile.dietType === 'vegetarian' ? 'Tofu Scramble & Toast' : 'Omelette & Toast',
+        items: [
+          { ...getFood('Bread'), amount: 2 },
+          { ...getFood(profile.dietType === 'vegetarian' ? 'Paneer' : 'Eggs'), amount: 1 } // Tofu is mocked by Paneer
+        ]
+      },
+      {
+        name: profile.goal === 'loss' ? 'Green Tea & Fruit Bowl' : 'Protein Smoothie Bowl',
+        items: [
+          { ...getFood(profile.goal === 'loss' ? 'Broccoli' : 'Yogurt'), amount: 1, name: profile.goal === 'loss' ? 'Green Tea' : 'Protein Powder' }, // Mock item
+          { ...getFood('Apple'), amount: 1 },
+          { ...getFood(profile.goal === 'gain' ? 'Almonds' : 'Banana'), amount: 1 }
+        ]
+      }
+    ];
+    return baseOpts;
+  };
+
+  const getLunchOptions = () => {
+    return [
+      {
+        name: isVeg ? 'Rice, Dal & Paneer' : 'Chicken & Rice',
+        items: [
+          { ...getFood('Rice'), amount: 1 },
+          { ...getFood(isVeg ? 'Dal' : 'Chicken'), amount: 1 },
+          { ...getFood('Broccoli'), amount: 1 }
+        ]
+      },
+      {
+        name: isVeg ? 'Quinoa Salad & Paneer' : 'Tuna Salad Wrap',
+        items: [
+          { ...getFood('Bread'), amount: 1 },
+          { ...getFood(isVeg ? 'Paneer' : 'Chicken'), amount: 1 },
+          { ...getFood('Broccoli'), amount: 1 } // Mock salad
+        ]
+      },
+      {
+        name: profile.goal === 'loss' ? 'Clear Soup & Veggies' : 'Pasta & Meatballs',
+        items: [
+          { ...getFood(profile.goal === 'loss' ? 'Broccoli' : 'Rice'), amount: profile.goal === 'loss' ? 2 : 1 },
+          { ...getFood(isVeg ? 'Dal' : 'Chicken'), amount: profile.goal === 'loss' ? 1 : 2 }
+        ]
+      }
+    ];
+  };
+
+  const getSnackOptions = () => {
+    return [
+      {
+        name: 'Greek Yogurt & Almonds',
+        items: [
+          { ...getFood('Yogurt'), amount: 1 },
+          { ...getFood('Almonds'), amount: 1 }
+        ]
+      },
+      {
+        name: profile.goal === 'gain' ? 'Peanut Butter Toast' : 'Apple & Walnuts',
+        items: [
+          { ...getFood(profile.goal === 'gain' ? 'Bread' : 'Apple'), amount: 1 },
+          { ...getFood('Almonds'), amount: 1 } // Mock nuts/peanut butter
+        ]
+      },
+      {
+        name: profile.goal === 'loss' ? 'Green Tea & Rice Cake' : 'Protein Shake',
+        items: [
+          { ...getFood(profile.goal === 'loss' ? 'Broccoli' : 'Yogurt'), amount: 1, name: profile.goal === 'loss' ? 'Green Tea' : 'Whey Protein' },
+          { ...getFood('Oats'), amount: 0.5 }
+        ]
+      }
+    ];
+  };
+
+  const getDinnerOptions = () => {
+    return [
+      {
+        name: isVeg ? 'Paneer & Veggies' : 'Chicken & Veggies',
+        items: [
+          { ...getFood(isVeg ? 'Paneer' : 'Chicken'), amount: 1 },
+          { ...getFood('Broccoli'), amount: 2 }
+        ]
+      },
+      {
+        name: isVeg ? 'Dal Tadka & Roti' : 'Grilled Fish & Sweet Potato',
+        items: [
+          { ...getFood('Bread'), amount: 2 },
+          { ...getFood(isVeg ? 'Dal' : 'Chicken'), amount: 1 }
+        ]
+      },
+      {
+        name: profile.goal === 'loss' ? 'Light Salad Bowl' : 'Heavy Steak Dinner',
+        items: [
+          { ...getFood('Broccoli'), amount: profile.goal === 'loss' ? 3 : 1 },
+          { ...getFood(isVeg ? 'Paneer' : 'Chicken'), amount: profile.goal === 'loss' ? 0.5 : 2 }
+        ]
+      }
+    ];
+  };
+
   const dayTemplate = {
-    breakfast: {
-      name: profile.dietType === 'vegetarian' ? 'Oats & Banana' : 'Eggs & Oats',
-      items: [
-        { ...getFood('Oats'), amount: 1 },
-        { ...getFood(profile.dietType === 'vegetarian' ? 'Banana' : 'Eggs'), amount: 1 }
-      ]
-    },
-    lunch: {
-      name: isVeg ? 'Rice, Dal & Paneer' : 'Chicken & Rice',
-      items: [
-        { ...getFood('Rice'), amount: 1 },
-        { ...getFood(isVeg ? 'Dal' : 'Chicken'), amount: 1 },
-        { ...getFood('Broccoli'), amount: 1 }
-      ]
-    },
-    snack: {
-      name: 'Greek Yogurt & Almonds',
-      items: [
-        { ...getFood('Yogurt'), amount: 1 },
-        { ...getFood('Almonds'), amount: 1 }
-      ]
-    },
-    dinner: {
-      name: isVeg ? 'Paneer & Veggies' : 'Chicken & Veggies',
-      items: [
-        { ...getFood(isVeg ? 'Paneer' : 'Chicken'), amount: 1 },
-        { ...getFood('Broccoli'), amount: 2 }
-      ]
-    }
+    breakfast: getBreakfastOptions(),
+    lunch: getLunchOptions(),
+    snack: getSnackOptions(),
+    dinner: getDinnerOptions()
   };
 
   const plan = [];
