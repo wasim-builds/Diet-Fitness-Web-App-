@@ -217,3 +217,44 @@ const generateStaticMealPlan = (profile) => {
 
   return plan;
 };
+
+/**
+ * Generates an AI Coach chat response using Gemini.
+ */
+export const generateCoachResponse = async (messageHistory, profile) => {
+  if (!ai) {
+    return "I'm currently in offline mode and cannot connect to my brain. Please check your API key!";
+  }
+
+  const systemInstruction = `
+You are FitPlan AI Coach, a world-class personal trainer and sports nutritionist.
+The user's profile:
+- Goal: ${profile?.goal || 'General Fitness'}
+- Diet: ${profile?.dietType || 'Mixed'}
+- Gender/Age/Weight: ${profile?.gender || 'Unknown'}, ${profile?.age || 'Unknown'}, ${profile?.weight || 'Unknown'}kg
+
+Guidelines:
+1. Keep responses concise, energetic, and highly actionable (1-3 short paragraphs max).
+2. Do not use complex markdown formatting like tables. Use simple bullet points if needed.
+3. Always tailor your advice specifically to their stated goal and diet.
+4. If they ask for food, give specific suggestions. If they ask for a workout, give a quick routine.
+  `.trim();
+
+  const conversation = messageHistory.map(msg => `${msg.type === 'user' ? 'User' : 'Coach'}: ${msg.text}`).join('\n\n');
+  const prompt = `${systemInstruction}\n\nChat History:\n${conversation}\n\nCoach:`;
+
+  try {
+    const response = await ai.models.generateContent({
+      model: 'gemini-2.5-flash',
+      contents: prompt,
+      config: {
+        temperature: 0.7,
+      }
+    });
+    
+    return response.text.trim();
+  } catch (error) {
+    console.error("Gemini Chat Error:", error);
+    return "I'm having a little trouble connecting right now, let's try again in a moment!";
+  }
+};

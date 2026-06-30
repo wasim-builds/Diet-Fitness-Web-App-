@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Send, Bot, User, Sparkles, Activity, Utensils, Dumbbell } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useAuth } from '../auth/AuthContext';
+import { generateCoachResponse } from '../../services/ai';
 
 const INITIAL_MESSAGES = [
   {
@@ -33,7 +34,7 @@ const AICoach = () => {
     scrollToBottom();
   }, [messages, isTyping]);
 
-  const handleSend = (text) => {
+  const handleSend = async (text) => {
     if (!text.trim()) return;
 
     // Add user message
@@ -44,21 +45,26 @@ const AICoach = () => {
       time: 'Just now'
     };
     
-    setMessages(prev => [...prev, newUserMsg]);
+    // We create a snapshot of the messages array including the new message
+    // so we can pass the full context to the AI
+    const updatedMessages = [...messages, newUserMsg];
+    
+    setMessages(updatedMessages);
     setInput('');
     setIsTyping(true);
 
-    // Simulate AI response
-    setTimeout(() => {
-      const aiResponse = {
-        id: Date.now() + 1,
-        type: 'ai',
-        text: `Based on your goal to ${userProfile?.goal || 'get fit'}, that's a great question. Make sure to stay consistent and hydrate! Let me know if you need a specific plan.`,
-        time: 'Just now'
-      };
-      setMessages(prev => [...prev, aiResponse]);
-      setIsTyping(false);
-    }, 1500);
+    // Call real Gemini API
+    const aiResponseText = await generateCoachResponse(updatedMessages, userProfile);
+    
+    const aiResponse = {
+      id: Date.now() + 1,
+      type: 'ai',
+      text: aiResponseText,
+      time: 'Just now'
+    };
+    
+    setMessages(prev => [...prev, aiResponse]);
+    setIsTyping(false);
   };
 
   return (
