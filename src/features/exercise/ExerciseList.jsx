@@ -52,6 +52,156 @@ const workoutCategories = [
       { name: 'Walking Lunges', sets: 3, reps: '20 Steps', image: 'https://images.unsplash.com/photo-1434596922112-19c563067271?q=80&w=200' },
       { name: 'Calf Raises', sets: 4, reps: '15 Reps', image: 'https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?q=80&w=200' }
     ]
+  },
+  {
+    id: 'core-15',
+    name: '15 Min Core',
+    image: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?q=80&w=600&auto=format&fit=crop',
+    difficulty: 'Beginner',
+    duration: '15 Min',
+    calories: '150 kcal',
+    youtubeId: 'dJlFmxiL11s',
+    exercises: [
+      { name: 'Crunches', sets: 3, reps: '20 Reps', image: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?q=80&w=200' },
+      { name: 'Plank', sets: 3, reps: '60 Sec', image: 'https://images.unsplash.com/photo-1566241142559-40e1dab266c6?q=80&w=200' },
+      { name: 'Russian Twists', sets: 3, reps: '30 Reps', image: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?q=80&w=200' },
+      { name: 'Leg Raises', sets: 3, reps: '15 Reps', image: 'https://images.unsplash.com/photo-1566241142559-40e1dab266c6?q=80&w=200' }
+    ]
+  },
+  {
+    id: 'hiit-10',
+    name: '10 Min HIIT',
+    image: 'https://images.unsplash.com/photo-1538805060514-97d9cc17730c?q=80&w=600&auto=format&fit=crop',
+    difficulty: 'Intermediate',
+    duration: '10 Min',
+    calories: '200 kcal',
+    youtubeId: 'M0uO8X3_tEA',
+    exercises: [
+      { name: 'Jumping Jacks', sets: 2, reps: '45 Sec', image: 'https://images.unsplash.com/photo-1538805060514-97d9cc17730c?q=80&w=200' },
+      { name: 'Burpees', sets: 2, reps: '45 Sec', image: 'https://images.unsplash.com/photo-1434596922112-19c563067271?q=80&w=200' },
+      { name: 'Mountain Climbers', sets: 2, reps: '45 Sec', image: 'https://images.unsplash.com/photo-1538805060514-97d9cc17730c?q=80&w=200' },
+      { name: 'High Knees', sets: 2, reps: '45 Sec', image: 'https://images.unsplash.com/photo-1434596922112-19c563067271?q=80&w=200' }
+    ]
+  },
+  {
+    id: 'stretch-5',
+    name: '5 Min Stretch',
+    image: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=600&auto=format&fit=crop',
+    difficulty: 'Beginner',
+    duration: '5 Min',
+    calories: '50 kcal',
+    youtubeId: 'g_tea8ZNk5A',
+    exercises: [
+      { name: 'Neck Rolls', sets: 1, reps: '30 Sec', image: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=200' },
+      { name: 'Shoulder Stretch', sets: 1, reps: '30 Sec/side', image: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=200' },
+      { name: 'Hamstring Stretch', sets: 1, reps: '30 Sec/side', image: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=200' },
+      { name: 'Childs Pose', sets: 1, reps: '60 Sec', image: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=200' }
+    ]
+  },
+  {
+    id: 'upper-15',
+    name: '15 Min Upper',
+    image: 'https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?q=80&w=600&auto=format&fit=crop',
+    difficulty: 'Intermediate',
+    duration: '15 Min',
+    calories: '180 kcal',
+    youtubeId: 'ndb2_r9Xb94',
+    exercises: [
+      { name: 'Dumbbell Curls', sets: 3, reps: '12 Reps', image: 'https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?q=80&w=200' },
+      { name: 'Tricep Extensions', sets: 3, reps: '12 Reps', image: 'https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?q=80&w=200' },
+      { name: 'Lateral Raises', sets: 3, reps: '15 Reps', image: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=200' },
+      { name: 'Shoulder Press', sets: 3, reps: '10 Reps', image: 'https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?q=80&w=200' }
+    ]
+  },
+  {
+    id: 'booty-10',
+    name: '10 Min Booty',
+    image: 'https://images.unsplash.com/photo-1574680096145-d05b474e2155?q=80&w=600&auto=format&fit=crop',
+    difficulty: 'Intermediate',
+    duration: '10 Min',
+    calories: '120 kcal',
+    youtubeId: 'O1O0X3q1790',
+    exercises: [
+      { name: 'Glute Bridges', sets: 3, reps: '20 Reps', image: 'https://images.unsplash.com/photo-1574680096145-d05b474e2155?q=80&w=200' },
+      { name: 'Donkey Kicks', sets: 3, reps: '15/side', image: 'https://images.unsplash.com/photo-1574680096145-d05b474e2155?q=80&w=200' },
+      { name: 'Fire Hydrants', sets: 3, reps: '15/side', image: 'https://images.unsplash.com/photo-1574680096145-d05b474e2155?q=80&w=200' },
+      { name: 'Squat Pulses', sets: 3, reps: '30 Sec', image: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=200' }
+    ]
+  },
+  {
+    id: 'fullbody-15',
+    name: '15 Min Full Body',
+    image: 'https://images.unsplash.com/photo-1518611012118-696072aa579a?q=80&w=600&auto=format&fit=crop',
+    difficulty: 'Hard',
+    duration: '15 Min',
+    calories: '220 kcal',
+    youtubeId: 'UBMk30rjy0o',
+    exercises: [
+      { name: 'Squat to Press', sets: 3, reps: '12 Reps', image: 'https://images.unsplash.com/photo-1518611012118-696072aa579a?q=80&w=200' },
+      { name: 'Renegade Rows', sets: 3, reps: '10/side', image: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=200' },
+      { name: 'Reverse Lunges', sets: 3, reps: '12/side', image: 'https://images.unsplash.com/photo-1434596922112-19c563067271?q=80&w=200' },
+      { name: 'Pushups', sets: 3, reps: '15 Reps', image: 'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?q=80&w=200' }
+    ]
+  },
+  {
+    id: 'yoga-10',
+    name: '10 Min Yoga',
+    image: 'https://images.unsplash.com/photo-1599901860904-17e08c2d28bb?q=80&w=600&auto=format&fit=crop',
+    difficulty: 'Beginner',
+    duration: '10 Min',
+    calories: '80 kcal',
+    youtubeId: 'v7AYKMP6rOE',
+    exercises: [
+      { name: 'Downward Dog', sets: 1, reps: '60 Sec', image: 'https://images.unsplash.com/photo-1599901860904-17e08c2d28bb?q=80&w=200' },
+      { name: 'Warrior I', sets: 1, reps: '30 Sec/side', image: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=200' },
+      { name: 'Tree Pose', sets: 1, reps: '30 Sec/side', image: 'https://images.unsplash.com/photo-1599901860904-17e08c2d28bb?q=80&w=200' },
+      { name: 'Savasana', sets: 1, reps: '2 Min', image: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=200' }
+    ]
+  },
+  {
+    id: 'arms-15',
+    name: '15 Min Arms',
+    image: 'https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?q=80&w=600&auto=format&fit=crop',
+    difficulty: 'Intermediate',
+    duration: '15 Min',
+    calories: '160 kcal',
+    youtubeId: 'ndb2_r9Xb94',
+    exercises: [
+      { name: 'Hammer Curls', sets: 3, reps: '12 Reps', image: 'https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?q=80&w=200' },
+      { name: 'Tricep Dips', sets: 3, reps: '15 Reps', image: 'https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?q=80&w=200' },
+      { name: 'Concentration Curls', sets: 3, reps: '10/side', image: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=200' },
+      { name: 'Diamond Pushups', sets: 3, reps: '10 Reps', image: 'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?q=80&w=200' }
+    ]
+  },
+  {
+    id: 'posture-10',
+    name: '10 Min Posture',
+    image: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=600&auto=format&fit=crop',
+    difficulty: 'Beginner',
+    duration: '10 Min',
+    calories: '60 kcal',
+    youtubeId: 'LT_dFRnmdGs',
+    exercises: [
+      { name: 'Wall Angels', sets: 2, reps: '15 Reps', image: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=200' },
+      { name: 'Cat-Cow', sets: 2, reps: '10 Reps', image: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=200' },
+      { name: 'Prone Cobra', sets: 2, reps: '30 Sec', image: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=200' },
+      { name: 'Bird-Dog', sets: 2, reps: '10/side', image: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=200' }
+    ]
+  },
+  {
+    id: 'kettlebell-15',
+    name: '15 Min KB',
+    image: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=600&auto=format&fit=crop',
+    difficulty: 'Advanced',
+    duration: '15 Min',
+    calories: '250 kcal',
+    youtubeId: 'jVn8I2O8Z4Q',
+    exercises: [
+      { name: 'KB Swings', sets: 4, reps: '20 Reps', image: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=200' },
+      { name: 'Goblet Squats', sets: 3, reps: '15 Reps', image: 'https://images.unsplash.com/photo-1574680096145-d05b474e2155?q=80&w=200' },
+      { name: 'KB Rows', sets: 3, reps: '12/side', image: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=200' },
+      { name: 'Halo', sets: 3, reps: '10/direction', image: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=200' }
+    ]
   }
 ];
 
