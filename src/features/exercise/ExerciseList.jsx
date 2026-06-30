@@ -211,6 +211,13 @@ const ExerciseList = () => {
   const [selectedWorkout, setSelectedWorkout] = useState(null);
   const [isLogging, setIsLogging] = useState(false);
   const [isPlayingVideo, setIsPlayingVideo] = useState(false);
+  const [filter, setFilter] = useState('All');
+  
+  const difficulties = ['All', 'Beginner', 'Intermediate', 'Advanced', 'Hard'];
+  
+  const displayedWorkouts = filter === 'All' 
+    ? workoutCategories 
+    : workoutCategories.filter(w => w.difficulty === filter);
 
   const handleStartWorkout = async (workout) => {
     if (!currentUser || !userProfile) return;
@@ -255,8 +262,24 @@ const ExerciseList = () => {
               <p className="text-slate-400">Select a category to begin your training.</p>
             </div>
 
+            <div className="flex gap-2 mb-8 overflow-x-auto hide-scrollbar pb-2">
+              {difficulties.map(diff => (
+                <button
+                  key={diff}
+                  onClick={() => setFilter(diff)}
+                  className={`px-5 py-2 rounded-xl text-sm font-bold whitespace-nowrap transition-all ${
+                    filter === diff 
+                      ? 'bg-green-500 text-slate-950 shadow-[0_0_15px_rgba(34,197,94,0.3)]' 
+                      : 'bg-white/5 text-slate-400 hover:text-white hover:bg-white/10'
+                  }`}
+                >
+                  {diff}
+                </button>
+              ))}
+            </div>
+
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {workoutCategories.map((cat, i) => (
+              {displayedWorkouts.map((cat, i) => (
                 <motion.div 
                   key={cat.id} 
                   initial={{ opacity: 0, y: 20 }}

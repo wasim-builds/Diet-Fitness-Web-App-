@@ -70,7 +70,7 @@ const FoodLogView = () => {
           placeholder="Search for food..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          className="w-full pl-11 pr-4 py-3 bg-white border border-slate-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-sky-500 shadow-sm"
+          className="w-full pl-11 pr-4 py-3 bg-white/5 border border-white/10 rounded-2xl focus:outline-none focus:ring-2 focus:ring-green-500 shadow-sm text-white placeholder-slate-400"
         />
       </div>
 
@@ -81,13 +81,13 @@ const FoodLogView = () => {
               <button 
                 key={food.id}
                 onClick={() => handleSelect(food)}
-                className="w-full flex justify-between items-center bg-white p-4 rounded-2xl border border-slate-100 shadow-sm hover:border-sky-300 transition-colors text-left"
+                className="w-full flex justify-between items-center bg-white/5 p-4 rounded-2xl border border-white/10 shadow-sm hover:border-green-500/50 hover:bg-white/10 transition-colors text-left"
               >
                 <div>
-                  <p className="font-semibold text-slate-800">{food.name}</p>
-                  <p className="text-xs text-slate-500 mt-1">{Math.round(food.calories_per_100g * food.serving_multiplier)} kcal per {food.serving_unit}</p>
+                  <p className="font-bold text-white">{food.name}</p>
+                  <p className="text-xs text-slate-400 mt-1">{Math.round(food.calories_per_100g * food.serving_multiplier)} kcal per {food.serving_unit}</p>
                 </div>
-                <div className="text-sky-500 bg-sky-50 p-2 rounded-full">
+                <div className="text-green-400 bg-green-500/10 p-2 rounded-full">
                   <Plus size={18} />
                 </div>
               </button>
@@ -99,52 +99,52 @@ const FoodLogView = () => {
       )}
 
       {selectedFood && (
-        <div className="bg-white p-6 rounded-3xl border border-slate-200 shadow-md">
-          <h3 className="text-xl font-bold text-slate-800 mb-1">{selectedFood.name}</h3>
-          <p className="text-sm text-slate-500 mb-6">Serving size: {selectedFood.serving_unit}</p>
+        <div className="glass-card p-6 rounded-3xl border border-white/10 shadow-md">
+          <h3 className="text-xl font-bold text-white mb-1">{selectedFood.name}</h3>
+          <p className="text-sm text-slate-400 mb-6">Serving size: {selectedFood.serving_unit}</p>
           
           <div className="flex items-center justify-between mb-6">
-            <span className="font-semibold text-slate-700">Number of servings</span>
+            <span className="font-bold text-slate-300">Number of servings</span>
             <input 
               type="number" 
               min="0.5" 
               step="0.5" 
               value={servings} 
               onChange={(e) => setServings(parseFloat(e.target.value) || 0)}
-              className="w-20 text-center py-2 px-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-sky-500"
+              className="w-20 text-center py-2 px-3 bg-white/5 border border-white/10 text-white rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500"
             />
           </div>
 
-          <div className="bg-slate-50 p-4 rounded-2xl grid grid-cols-4 gap-2 mb-6">
+          <div className="bg-white/5 p-4 rounded-2xl grid grid-cols-4 gap-2 mb-6">
             <div className="text-center">
-              <p className="text-xs text-slate-500 font-medium">Kcal</p>
-              <p className="font-bold text-slate-800">{Math.round(selectedFood.calories_per_100g * selectedFood.serving_multiplier * servings)}</p>
+              <p className="text-xs text-slate-400 font-medium">Kcal</p>
+              <p className="font-bold text-white">{Math.round(selectedFood.calories_per_100g * selectedFood.serving_multiplier * servings)}</p>
             </div>
             <div className="text-center">
-              <p className="text-xs text-slate-500 font-medium">Pro</p>
-              <p className="font-bold text-slate-800">{Math.round(selectedFood.protein * selectedFood.serving_multiplier * servings)}g</p>
+              <p className="text-xs text-slate-400 font-medium">Pro</p>
+              <p className="font-bold text-white">{Math.round(selectedFood.protein * selectedFood.serving_multiplier * servings)}g</p>
             </div>
             <div className="text-center">
-              <p className="text-xs text-slate-500 font-medium">Carb</p>
-              <p className="font-bold text-slate-800">{Math.round(selectedFood.carbs * selectedFood.serving_multiplier * servings)}g</p>
+              <p className="text-xs text-slate-400 font-medium">Carb</p>
+              <p className="font-bold text-white">{Math.round(selectedFood.carbs * selectedFood.serving_multiplier * servings)}g</p>
             </div>
             <div className="text-center">
-              <p className="text-xs text-slate-500 font-medium">Fat</p>
-              <p className="font-bold text-slate-800">{Math.round(selectedFood.fat * selectedFood.serving_multiplier * servings)}g</p>
+              <p className="text-xs text-slate-400 font-medium">Fat</p>
+              <p className="font-bold text-white">{Math.round(selectedFood.fat * selectedFood.serving_multiplier * servings)}g</p>
             </div>
           </div>
 
           <div className="flex gap-3">
             <button 
               onClick={() => setSelectedFood(null)}
-              className="flex-1 py-3 bg-slate-100 text-slate-700 font-semibold rounded-xl hover:bg-slate-200 transition-colors"
+              className="flex-1 py-3 bg-white/10 text-white font-bold rounded-xl hover:bg-white/20 transition-colors"
             >
               Cancel
             </button>
             <button 
               onClick={handleLog}
               disabled={isLogging || servings <= 0}
-              className="flex-1 py-3 bg-sky-500 text-white font-semibold rounded-xl hover:bg-sky-600 transition-colors disabled:opacity-50"
+              className="flex-1 py-3 bg-green-500 text-slate-950 font-bold rounded-xl hover:bg-green-400 transition-colors disabled:opacity-50 shadow-[0_0_20px_rgba(34,197,94,0.3)]"
             >
               {isLogging ? 'Logging...' : 'Log Food'}
             </button>

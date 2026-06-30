@@ -123,7 +123,7 @@ const Layout = () => {
               </div>
             )}
             
-            <div className="flex items-center gap-3 pl-4 border-l border-white/10 cursor-pointer group">
+            <div onClick={() => navigate('/dashboard/settings')} className="flex items-center gap-3 pl-4 border-l border-white/10 cursor-pointer group">
               <div className="text-right hidden sm:block">
                 <p className="text-sm font-bold text-white group-hover:text-green-400 transition-colors">{userProfile?.name || 'User'}</p>
                 <p className="text-xs text-slate-400">{userProfile?.goal || 'Fitness Enthusiast'}</p>
