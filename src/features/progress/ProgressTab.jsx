@@ -11,7 +11,6 @@ const ProgressTab = () => {
   const [weightLogs, setWeightLogs] = useState([]);
   const [newWeight, setNewWeight] = useState('');
   const [isLogging, setIsLogging] = useState(false);
-  const [loading, setLoading] = useState(weightLogs.length === 0);
   const [currentPhoto, setCurrentPhoto] = useState('https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?q=80&w=400&auto=format&fit=crop');
 
   const handlePhotoUpload = (e) => {
@@ -57,17 +56,14 @@ const ProgressTab = () => {
           
           if (isMounted) {
             setWeightLogs(logs);
-            setLoading(false);
           }
         }, (err) => {
           console.error("Error fetching weight logs snapshot:", err);
-          if (isMounted) setLoading(false);
         });
         
         return unsubscribe;
       } catch (err) {
         console.error("Error setting up weight logs:", err);
-        if (isMounted) setLoading(false);
       }
     };
 
@@ -102,13 +98,7 @@ const ProgressTab = () => {
     setIsLogging(false);
   };
 
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center h-64">
-        <div className="w-8 h-8 border-4 border-green-500 border-t-transparent rounded-full animate-spin"></div>
-      </div>
-    );
-  }
+
 
   // Calculate BMI
   const heightM = (userProfile?.height || 170) / 100;

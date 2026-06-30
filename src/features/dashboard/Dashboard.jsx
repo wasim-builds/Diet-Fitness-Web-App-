@@ -19,8 +19,6 @@ const mockWeeklyData = [
   { name: 'Tue', calories: 2400, burned: 600 },
   { name: 'Wed', calories: 2200, burned: 300 },
   { name: 'Thu', calories: 2600, burned: 800 },
-  { name: 'Fri', calories: 2100, burned: 500 },
-  { name: 'Sat', calories: 2800, burned: 900 },
   { name: 'Sun', calories: 2000, burned: 200 },
 ];
 
@@ -28,7 +26,6 @@ const Dashboard = () => {
   const { userProfile, currentUser } = useAuth();
   const { todayLog, setTodayLog } = useAppStore();
   const todayStr = getLocalTodayDateString();
-  const [loading, setLoading] = useState(todayLog?.date !== todayStr);
 
   useEffect(() => {
     if (!currentUser) return;
@@ -43,19 +40,22 @@ const Dashboard = () => {
           water_glasses: 0, exercise_minutes: 0, calories_burned: 0
         });
       }
-      setLoading(false);
     });
 
     return () => unsubscribe();
   }, [currentUser, todayStr, setTodayLog]);
 
-  if (loading || !userProfile || !todayLog) {
+  if (!userProfile) {
     return (
       <div className="flex items-center justify-center h-64">
         <div className="w-8 h-8 border-4 border-green-500 border-t-transparent rounded-full animate-spin"></div>
       </div>
     );
   }
+
+  const displayLog = todayLog || {
+    calories_consumed: 0, protein_consumed: 0, water_glasses: 0, exercise_minutes: 0, calories_burned: 0
+  };
 
   const { targets } = userProfile;
   const calProgress = (todayLog.calories_consumed / targets.calories) * 100 || 0;
