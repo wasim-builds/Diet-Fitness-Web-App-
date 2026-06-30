@@ -11,7 +11,7 @@ const ProgressTab = () => {
   const [weightLogs, setWeightLogs] = useState([]);
   const [newWeight, setNewWeight] = useState('');
   const [isLogging, setIsLogging] = useState(false);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(weightLogs.length === 0);
   const [currentPhoto, setCurrentPhoto] = useState('https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?q=80&w=400&auto=format&fit=crop');
 
   const handlePhotoUpload = (e) => {

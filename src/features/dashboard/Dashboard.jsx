@@ -27,9 +27,8 @@ const mockWeeklyData = [
 const Dashboard = () => {
   const { userProfile, currentUser } = useAuth();
   const { todayLog, setTodayLog } = useAppStore();
-  const [loading, setLoading] = useState(true);
-
   const todayStr = getLocalTodayDateString();
+  const [loading, setLoading] = useState(todayLog?.date !== todayStr);
 
   useEffect(() => {
     if (!currentUser) return;
