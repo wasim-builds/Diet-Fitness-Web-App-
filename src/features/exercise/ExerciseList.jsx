@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Play, CheckCircle, Clock, Flame, Dumbbell, ArrowLeft } from 'lucide-react';
 import { doc, updateDoc, increment } from 'firebase/firestore';
-import { auth, db } from '../../services/firebase';
+import { db } from '../../services/firebase';
 import useAppStore from '../../store/useAppStore';
 import { useAuth } from '../auth/AuthContext';
 import { getLocalTodayDateString } from '../../utils/dateHelpers';

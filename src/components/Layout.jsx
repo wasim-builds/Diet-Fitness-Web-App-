@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { NavLink, Outlet, useNavigate } from 'react-router-dom';
 import { 
-  Home, Utensils, Dumbbell, TrendingUp, User, 
-  Target, Settings, Search, Bell, Activity, LogOut, Users, Bot
+  Home, Utensils, Dumbbell, TrendingUp,
+  Settings, Search, Bell, Activity, LogOut, Users, Bot
 } from 'lucide-react';
 import { useAuth } from '../features/auth/AuthContext';
 import { auth } from '../services/firebase';

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { 
-  Activity, ArrowRight, Brain, ChevronDown, Dumbbell, 
+  Activity, Brain, Dumbbell, 
   Menu, Play, Star, Users, X, Zap 
 } from 'lucide-react';
 import { useAuth } from '../auth/AuthContext';

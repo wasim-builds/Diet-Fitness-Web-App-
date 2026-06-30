@@ -1,16 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { doc, onSnapshot } from 'firebase/firestore';
 import { 
   Activity, Flame, Droplets, Dumbbell, TrendingUp, Heart, 
-  Calendar, Award, Target, ChevronRight, Plus, Minus, Utensils
+  Calendar, Award, Target, ChevronRight, Utensils
 } from 'lucide-react';
 import { db } from '../../services/firebase';
 import { useAuth } from '../auth/AuthContext';
 import useAppStore from '../../store/useAppStore';
 import { getLocalTodayDateString } from '../../utils/dateHelpers';
-import ProgressRing from '../../components/ProgressRing';
 import { 
-  LineChart, Line, BarChart, Bar, XAxis, YAxis, 
+  LineChart, Line, XAxis, YAxis, 
   CartesianGrid, Tooltip, ResponsiveContainer 
 } from 'recharts';
 
@@ -57,9 +56,9 @@ const Dashboard = () => {
     calories_consumed: 0, protein_consumed: 0, water_glasses: 0, exercise_minutes: 0, calories_burned: 0
   };
 
-  const { targets } = userProfile;
-  const calProgress = (todayLog.calories_consumed / targets.calories) * 100 || 0;
-  const proProgress = (todayLog.protein_consumed / targets.protein) * 100 || 0;
+  const targets = userProfile.targets || { calories: 2000, protein: 150 };
+  const calProgress = (displayLog.calories_consumed / targets.calories) * 100 || 0;
+  const proProgress = (displayLog.protein_consumed / targets.protein) * 100 || 0;
 
   return (
     <div className="space-y-6 animate-in fade-in duration-500">
@@ -87,10 +86,10 @@ const Dashboard = () => {
       {/* KPI Widgets Grid */}
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
         {[
-          { icon: <Flame className="text-orange-400" />, label: 'Calories', value: `${todayLog.calories_consumed} kcal`, desc: `Target: ${targets.calories}` },
-          { icon: <Activity className="text-green-400" />, label: 'Workout Time', value: `${todayLog.exercise_minutes} min`, desc: 'Today' },
-          { icon: <TrendingUp className="text-blue-400" />, label: 'Weight', value: `${userProfile.weight_kg} kg`, desc: `Target: ${userProfile.target_weight_kg}` },
-          { icon: <Droplets className="text-sky-400" />, label: 'Water', value: `${todayLog.water_glasses} glasses`, desc: 'Target: 8' },
+          { icon: <Flame className="text-orange-400" />, label: 'Calories', value: `${displayLog.calories_consumed} kcal`, desc: `Target: ${targets.calories}` },
+          { icon: <Activity className="text-green-400" />, label: 'Workout Time', value: `${displayLog.exercise_minutes} min`, desc: 'Today' },
+          { icon: <TrendingUp className="text-blue-400" />, label: 'Weight', value: `${userProfile.weight || userProfile.weight_kg} kg`, desc: `Target: ${userProfile.target_weight_kg || targets.weight || 65}` },
+          { icon: <Droplets className="text-sky-400" />, label: 'Water', value: `${displayLog.water_glasses} glasses`, desc: 'Target: 8' },
           { icon: <Heart className="text-red-400" />, label: 'Avg HR', value: '112 bpm', desc: 'Active' },
         ].map((stat, i) => (
           <div key={i} className="glass-panel p-5 flex flex-col justify-between group hover:bg-white/5 transition-all cursor-pointer">

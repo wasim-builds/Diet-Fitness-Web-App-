@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { doc, setDoc, collection, query, orderBy, limit, onSnapshot } from 'firebase/firestore';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
-import { Plus, Camera, TrendingDown, TrendingUp, Target, Activity } from 'lucide-react';
+import { Plus, Camera, TrendingDown, Target, Activity } from 'lucide-react';
 import { db } from '../../services/firebase';
 import { useAuth } from '../auth/AuthContext';
 import { getLocalTodayDateString } from '../../utils/dateHelpers';
