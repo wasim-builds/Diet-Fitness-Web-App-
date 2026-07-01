@@ -9,7 +9,7 @@ const COLORS = ['#22c55e', '#f97316', '#3b82f6']; // Protein, Carbs, Fat
 
 const MealPlanView = () => {
   const { userProfile } = useAuth();
-  const [mealPlan, setMealPlan] = useState(null);
+  const { weeklyMealPlan: mealPlan, setWeeklyMealPlan: setMealPlan } = useAppStore();
   const [activeDay, setActiveDay] = useState(1);
   const [isGenerating, setIsGenerating] = useState(false);
   const [selectedOptions, setSelectedOptions] = useState({

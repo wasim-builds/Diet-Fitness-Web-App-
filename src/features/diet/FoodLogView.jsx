@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Search, Plus } from 'lucide-react';
+import { Search, Plus, ScanLine, X, Camera } from 'lucide-react';
 import { doc, updateDoc, increment } from 'firebase/firestore';
 import { auth, db } from '../../services/firebase';
 import useAppStore from '../../store/useAppStore';
@@ -11,6 +11,7 @@ const FoodLogView = () => {
   const [selectedFood, setSelectedFood] = useState(null);
   const [servings, setServings] = useState(1);
   const [isLogging, setIsLogging] = useState(false);
+  const [isScanning, setIsScanning] = useState(false);
   
   const { addFoodToLog } = useAppStore();
 
@@ -21,6 +22,15 @@ const FoodLogView = () => {
   const handleSelect = (food) => {
     setSelectedFood(food);
     setServings(1);
+    setIsScanning(false);
+  };
+
+  const simulateScan = () => {
+    // Pick a random food item to simulate a successful barcode scan
+    const randomFood = foodsData[Math.floor(Math.random() * foodsData.length)];
+    setTimeout(() => {
+      handleSelect(randomFood);
+    }, 1500); // 1.5s delay to simulate scanning
   };
 
   const handleLog = async () => {
@@ -70,11 +80,51 @@ const FoodLogView = () => {
           placeholder="Search for food..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          className="w-full pl-11 pr-4 py-3 bg-white/5 border border-white/10 rounded-2xl focus:outline-none focus:ring-2 focus:ring-green-500 shadow-sm text-white placeholder-slate-400"
+          className="w-full pl-11 pr-14 py-3 bg-white/5 border border-white/10 rounded-2xl focus:outline-none focus:ring-2 focus:ring-green-500 shadow-sm text-white placeholder-slate-400"
         />
+        <button 
+          onClick={() => setIsScanning(true)}
+          className="absolute inset-y-0 right-0 pr-4 flex items-center text-slate-400 hover:text-green-500 transition-colors"
+          title="Scan Barcode"
+        >
+          <ScanLine size={20} />
+        </button>
       </div>
 
-      {!selectedFood && searchTerm && (
+      {isScanning && !selectedFood && (
+        <div className="glass-card p-6 rounded-3xl border border-white/10 mb-6 relative overflow-hidden flex flex-col items-center justify-center min-h-[300px]">
+          <button 
+            onClick={() => setIsScanning(false)}
+            className="absolute top-4 right-4 text-slate-400 hover:text-white"
+          >
+            <X size={24} />
+          </button>
+          
+          <div className="relative w-48 h-48 mb-6 flex items-center justify-center">
+            {/* Mock Camera Viewfinder */}
+            <div className="absolute inset-0 border-2 border-green-500/30 rounded-2xl"></div>
+            <div className="absolute top-0 left-0 w-8 h-8 border-t-4 border-l-4 border-green-500 rounded-tl-2xl"></div>
+            <div className="absolute top-0 right-0 w-8 h-8 border-t-4 border-r-4 border-green-500 rounded-tr-2xl"></div>
+            <div className="absolute bottom-0 left-0 w-8 h-8 border-b-4 border-l-4 border-green-500 rounded-bl-2xl"></div>
+            <div className="absolute bottom-0 right-0 w-8 h-8 border-b-4 border-r-4 border-green-500 rounded-br-2xl"></div>
+            
+            {/* Scanning Laser Animation */}
+            <div className="absolute left-0 right-0 h-1 bg-green-400 shadow-[0_0_10px_rgba(74,222,128,1)] animate-scan-laser"></div>
+            <Camera className="text-slate-500/30 w-16 h-16" />
+          </div>
+
+          <p className="text-slate-300 font-medium mb-4 text-center">Point camera at a barcode</p>
+          
+          <button 
+            onClick={simulateScan}
+            className="bg-green-500/20 text-green-400 hover:bg-green-500/30 px-6 py-2 rounded-xl font-bold transition-colors border border-green-500/30"
+          >
+            Simulate Successful Scan
+          </button>
+        </div>
+      )}
+
+      {!selectedFood && searchTerm && !isScanning && (
         <div className="space-y-3">
           {filteredFoods.length > 0 ? (
             filteredFoods.map(food => (
@@ -152,7 +202,7 @@ const FoodLogView = () => {
         </div>
       )}
 
-      {!selectedFood && !searchTerm && (
+      {!selectedFood && !searchTerm && !isScanning && (
         <div className="text-center py-12 px-4 border-2 border-dashed border-slate-200 rounded-3xl mt-4">
           <Search size={32} className="mx-auto text-slate-300 mb-3" />
           <p className="text-slate-500 font-medium">Search for food to add to your daily log.</p>

@@ -2,8 +2,10 @@ import { create } from 'zustand';
 
 const useAppStore = create((set) => ({
   todayLog: null,
+  weeklyMealPlan: null,
   
   setTodayLog: (log) => set({ todayLog: log }),
+  setWeeklyMealPlan: (plan) => set({ weeklyMealPlan: plan }),
   
   // Optimistic update for water
   addWaterGlass: () => set((state) => ({

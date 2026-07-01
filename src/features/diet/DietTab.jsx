@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import MealPlanView from './MealPlanView';
 import FoodLogView from './FoodLogView';
+import GroceryListView from './GroceryListView';
 
 const DietTab = () => {
   const [activeTab, setActiveTab] = useState('mealplan');
@@ -26,6 +27,16 @@ const DietTab = () => {
           AI Diet Planner
         </button>
         <button
+          onClick={() => setActiveTab('grocery')}
+          className={`flex-1 py-3 text-sm font-bold rounded-2xl transition-all ${
+            activeTab === 'grocery' 
+              ? 'bg-green-500 text-slate-950 shadow-[0_0_20px_rgba(34,197,94,0.3)]' 
+              : 'text-slate-400 hover:text-white hover:bg-white/5'
+          }`}
+        >
+          Grocery List
+        </button>
+        <button
           onClick={() => setActiveTab('log')}
           className={`flex-1 py-3 text-sm font-bold rounded-2xl transition-all ${
             activeTab === 'log' 
@@ -39,7 +50,9 @@ const DietTab = () => {
 
       {/* Content */}
       <div className="min-h-[400px]">
-        {activeTab === 'mealplan' ? <MealPlanView /> : <FoodLogView />}
+        {activeTab === 'mealplan' && <MealPlanView />}
+        {activeTab === 'grocery' && <GroceryListView />}
+        {activeTab === 'log' && <FoodLogView />}
       </div>
     </div>
   );

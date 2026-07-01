@@ -70,7 +70,7 @@ const Dashboard = () => {
           <h1 className="text-3xl md:text-4xl font-extrabold text-white mb-2">
             Ready to <span className="text-gradient">crush it</span> today, {userProfile.name?.split(' ')[0] || 'User'}?
           </h1>
-          <p className="text-slate-400 font-medium">You are 12 days into your current streak. Keep it up!</p>
+          <p className="text-slate-400 font-medium">You are <span className="text-white font-bold">{userProfile.streak || 1} days</span> into your current streak. Keep it up!</p>
         </div>
         <div className="relative z-10 mt-6 md:mt-0 flex gap-4">
           <button className="bg-green-500 hover:bg-green-400 text-slate-950 px-6 py-3 rounded-xl font-bold transition-all shadow-[0_0_20px_rgba(34,197,94,0.3)] hover:-translate-y-0.5">
@@ -249,7 +249,7 @@ const Dashboard = () => {
             <Target className="text-green-500 w-5 h-5" /> Challenges
           </h2>
           
-          <div className="bg-gradient-to-br from-green-500/20 to-transparent border border-green-500/20 rounded-2xl p-4 mb-4 relative overflow-hidden">
+          <div className="bg-gradient-to-br from-green-500/20 to-transparent border border-green-500/20 rounded-2xl p-4 mb-6 relative overflow-hidden">
             <div className="absolute right-[-20px] top-[-20px] text-green-500/10">
               <Award size={100} />
             </div>
@@ -268,8 +268,30 @@ const Dashboard = () => {
             </div>
           </div>
           
+          <h3 className="text-sm font-bold text-white mb-3 uppercase tracking-wider text-slate-400">Your Badges</h3>
+          <div className="grid grid-cols-3 gap-3 mb-4">
+            <div className="bg-white/5 border border-white/10 rounded-xl p-3 flex flex-col items-center justify-center text-center hover:bg-white/10 transition-colors">
+              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-yellow-400 to-orange-500 flex items-center justify-center mb-2 shadow-lg shadow-orange-500/20">
+                <Flame className="text-white w-5 h-5" />
+              </div>
+              <span className="text-xs text-white font-bold">7-Day Streak</span>
+            </div>
+            <div className="bg-white/5 border border-white/10 rounded-xl p-3 flex flex-col items-center justify-center text-center hover:bg-white/10 transition-colors">
+              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-400 to-sky-500 flex items-center justify-center mb-2 shadow-lg shadow-sky-500/20">
+                <Activity className="text-white w-5 h-5" />
+              </div>
+              <span className="text-xs text-white font-bold">Protein Pro</span>
+            </div>
+            <div className="bg-white/5 border border-white/10 rounded-xl p-3 flex flex-col items-center justify-center text-center hover:bg-white/10 transition-colors opacity-50 grayscale">
+              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-400 to-pink-500 flex items-center justify-center mb-2">
+                <Award className="text-white w-5 h-5" />
+              </div>
+              <span className="text-xs text-slate-400 font-bold text-wrap">30-Day Shred</span>
+            </div>
+          </div>
+
           <button className="w-full py-3 rounded-xl border border-white/10 text-white font-medium hover:bg-white/5 transition-colors flex items-center justify-center gap-2">
-            View All Challenges
+            View All Achievements
           </button>
         </div>
 

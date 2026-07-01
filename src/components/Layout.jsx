@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { NavLink, Outlet, useNavigate } from 'react-router-dom';
 import { 
   Home, Utensils, Dumbbell, TrendingUp,
-  Settings, Search, Bell, Activity, LogOut, Users, Bot
+  Settings, Search, Bell, Activity, LogOut, Users, Bot, Flame
 } from 'lucide-react';
 import { useAuth } from '../features/auth/AuthContext';
 import { auth } from '../services/firebase';
@@ -11,6 +11,13 @@ const Layout = () => {
   const { userProfile } = useAuth();
   const navigate = useNavigate();
   const [isNotifOpen, setIsNotifOpen] = useState(false);
+  const [showToast, setShowToast] = useState(false);
+
+  React.useEffect(() => {
+    // Simulate gamification nudge after 3 seconds
+    const timer = setTimeout(() => setShowToast(true), 3000);
+    return () => clearTimeout(timer);
+  }, []);
 
   const navItems = [
     { name: 'Dashboard', path: '/dashboard', icon: Home },
@@ -152,11 +159,30 @@ const Layout = () => {
       {/* Floating AI Coach Bubble */}
       <button 
         onClick={() => navigate('/dashboard/aicoach')} 
-        className="fixed bottom-24 md:bottom-8 right-6 w-14 h-14 bg-green-500 rounded-full flex items-center justify-center text-slate-950 shadow-[0_0_20px_rgba(34,197,94,0.4)] hover:scale-110 transition-transform z-50 group"
+        className="fixed bottom-24 md:bottom-8 right-6 w-14 h-14 bg-green-500 rounded-full flex items-center justify-center text-slate-950 shadow-[0_0_20px_rgba(34,197,94,0.4)] hover:scale-110 transition-transform z-40 group"
       >
         <Bot size={28} />
         <span className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 rounded-full border-2 border-[#0B1120]"></span>
       </button>
+
+      {/* Mock Gamification Toast Notification */}
+      {showToast && (
+        <div className="fixed top-24 right-6 z-50 animate-in slide-in-from-right-8 fade-in duration-500">
+          <div className="bg-gradient-to-r from-green-500/90 to-green-600/90 backdrop-blur-md text-white p-4 rounded-2xl shadow-2xl border border-green-400/50 flex items-center gap-4 max-w-sm">
+            <div className="bg-white/20 p-2 rounded-full">
+              <Flame size={24} className="text-white" />
+            </div>
+            <div className="flex-1">
+              <h4 className="font-bold text-sm">Streak Maintained! 🔥</h4>
+              <p className="text-xs text-white/80 mt-0.5">You're doing great! Keep logging daily to earn the Protein Master badge.</p>
+            </div>
+            <button onClick={() => setShowToast(false)} className="text-white/60 hover:text-white transition-colors">
+              <span className="sr-only">Close</span>
+              &times;
+            </button>
+          </div>
+        </div>
+      )}
 
     </div>
   );

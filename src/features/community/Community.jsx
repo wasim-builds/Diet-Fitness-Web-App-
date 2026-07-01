@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Heart, MessageCircle, Share2, Award, TrendingUp, Search } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useAuth } from '../auth/AuthContext';
+import { db, auth } from '../../services/firebase';
+import { collection, addDoc, onSnapshot, query, orderBy, updateDoc, doc, arrayUnion, arrayRemove, limit } from 'firebase/firestore';
 
 const MOCK_POSTS = [
   {
@@ -51,36 +53,71 @@ const Community = () => {
   const [newPost, setNewPost] = useState('');
   const [posts, setPosts] = useState(MOCK_POSTS);
 
-  const handlePost = () => {
-    if (!newPost.trim()) return;
+  useEffect(() => {
+    if (!auth.currentUser) return;
+    const q = query(collection(db, 'posts'), orderBy('createdAt', 'desc'), limit(20));
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      const fetchedPosts = snapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data(),
+        hasLiked: doc.data().likedBy?.includes(auth.currentUser.uid)
+      }));
+      // Only set if we actually fetch something, otherwise keep mock data for presentation
+      if (fetchedPosts.length > 0) {
+        setPosts(fetchedPosts);
+      }
+    });
+
+    return () => unsubscribe();
+  }, []);
+
+  const handlePost = async () => {
+    if (!newPost.trim() || !auth.currentUser) return;
     
-    const post = {
-      id: Date.now(),
+    const postData = {
       user: userProfile?.name || 'User',
       avatar: `https://ui-avatars.com/api/?name=${userProfile?.name || 'User'}&background=22C55E&color=fff`,
       time: 'Just now',
       content: newPost,
       likes: 0,
+      likedBy: [],
       comments: 0,
       stats: null,
-      hasLiked: false
+      createdAt: Date.now()
     };
 
-    setPosts([post, ...posts]);
-    setNewPost('');
+    try {
+      await addDoc(collection(db, 'posts'), postData);
+      setNewPost('');
+    } catch (err) {
+      console.error("Error adding post:", err);
+    }
   };
 
-  const handleLike = (id) => {
-    setPosts(posts.map(post => {
-      if (post.id === id) {
-        return {
-          ...post,
-          likes: post.hasLiked ? post.likes - 1 : post.likes + 1,
-          hasLiked: !post.hasLiked
-        };
-      }
-      return post;
-    }));
+  const handleLike = async (post) => {
+    if (!auth.currentUser || !post.id || typeof post.id === 'number') {
+      // Mock like for MOCK_POSTS
+      setPosts(posts.map(p => {
+        if (p.id === post.id) {
+          return { ...p, likes: p.hasLiked ? p.likes - 1 : p.likes + 1, hasLiked: !p.hasLiked };
+        }
+        return p;
+      }));
+      return;
+    }
+
+    const postRef = doc(db, 'posts', post.id);
+    if (post.hasLiked) {
+      await updateDoc(postRef, {
+        likes: Math.max(0, post.likes - 1),
+        likedBy: arrayRemove(auth.currentUser.uid)
+      });
+    } else {
+      await updateDoc(postRef, {
+        likes: post.likes + 1,
+        likedBy: arrayUnion(auth.currentUser.uid)
+      });
+    }
   };
 
   return (
@@ -171,7 +208,7 @@ const Community = () => {
 
               <div className="flex items-center gap-6 border-t border-white/10 pt-4 mt-2">
                 <button 
-                  onClick={() => handleLike(post.id)}
+                  onClick={() => handleLike(post)}
                   className={`flex items-center gap-2 transition-colors group ${post.hasLiked ? 'text-red-500' : 'text-slate-400 hover:text-red-400'}`}
                 >
                   <Heart size={18} className={post.hasLiked ? "fill-current" : "group-hover:fill-current"} /> 
