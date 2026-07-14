@@ -223,10 +223,20 @@ const ExerciseList = () => {
     if (!currentUser || !userProfile) return;
     
     setIsLogging(true);
-    // Simulate workout completion and logging
     setTimeout(async () => {
-      const caloriesBurned = parseInt(workout.calories);
       const durationMins = parseInt(workout.duration);
+      let caloriesBurned = parseInt(workout.calories);
+      
+      // Dynamic MET calculation (Missing feature: accurate calorie burn estimation)
+      if (userProfile?.weight_kg || userProfile?.weight) {
+        const weight = parseFloat(userProfile.weight_kg || userProfile.weight);
+        let met = 5.0; // Moderate exercise default
+        if (workout.name.includes('HIIT')) met = 8.0;
+        else if (workout.name.includes('Stretch') || workout.name.includes('Posture')) met = 2.5;
+        else if (workout.difficulty === 'Hard' || workout.difficulty === 'Advanced') met = 7.0;
+        
+        caloriesBurned = Math.round(met * weight * (durationMins / 60));
+      }
 
       addExerciseToLog(durationMins, caloriesBurned);
 

@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
-import { doc, onSnapshot } from 'firebase/firestore';
+import { useNavigate } from 'react-router-dom';
+import { doc, onSnapshot, setDoc } from 'firebase/firestore';
 import { 
   Activity, Flame, Droplets, Dumbbell, TrendingUp, Heart, 
   Calendar, Award, Target, ChevronRight, Utensils
@@ -25,6 +26,19 @@ const Dashboard = () => {
   const { userProfile, currentUser } = useAuth();
   const { todayLog, setTodayLog } = useAppStore();
   const todayStr = getLocalTodayDateString();
+  const navigate = useNavigate();
+
+  const handleAddWater = async () => {
+    if (!currentUser) return;
+    const logRef = doc(db, 'users', currentUser.uid, 'daily_logs', todayStr);
+    try {
+      await setDoc(logRef, {
+        water_glasses: (displayLog.water_glasses || 0) + 1
+      }, { merge: true });
+    } catch (error) {
+      console.error("Error updating water:", error);
+    }
+  };
 
   useEffect(() => {
     if (!currentUser) return;
@@ -73,10 +87,10 @@ const Dashboard = () => {
           <p className="text-slate-400 font-medium">You are <span className="text-white font-bold">{userProfile.streak || 1} days</span> into your current streak. Keep it up!</p>
         </div>
         <div className="relative z-10 mt-6 md:mt-0 flex gap-4">
-          <button className="bg-green-500 hover:bg-green-400 text-slate-950 px-6 py-3 rounded-xl font-bold transition-all shadow-[0_0_20px_rgba(34,197,94,0.3)] hover:-translate-y-0.5">
+          <button onClick={() => navigate('/dashboard/exercise')} className="bg-green-500 hover:bg-green-400 text-slate-950 px-6 py-3 rounded-xl font-bold transition-all shadow-[0_0_20px_rgba(34,197,94,0.3)] hover:-translate-y-0.5">
             Log Workout
           </button>
-          <button className="bg-white/10 hover:bg-white/20 text-white px-6 py-3 rounded-xl font-bold transition-all border border-white/10">
+          <button onClick={() => navigate('/dashboard/diet')} className="bg-white/10 hover:bg-white/20 text-white px-6 py-3 rounded-xl font-bold transition-all border border-white/10">
             Log Meal
           </button>
         </div>
@@ -92,13 +106,22 @@ const Dashboard = () => {
           { icon: <Droplets className="text-sky-400" />, label: 'Water', value: `${displayLog.water_glasses} glasses`, desc: 'Target: 8' },
           { icon: <Heart className="text-red-400" />, label: 'Avg HR', value: '112 bpm', desc: 'Active' },
         ].map((stat, i) => (
-          <div key={i} className="glass-panel p-5 flex flex-col justify-between group hover:bg-white/5 transition-all cursor-pointer">
+          <div key={i} onClick={stat.label === 'Water' ? handleAddWater : undefined} className="glass-panel p-5 flex flex-col justify-between group hover:bg-white/5 transition-all cursor-pointer">
             <div className="flex items-center gap-3 mb-4">
               <div className="p-2 rounded-xl bg-slate-900/50 border border-white/5">{stat.icon}</div>
               <span className="text-slate-400 text-sm font-medium">{stat.label}</span>
             </div>
             <div>
-              <p className="text-2xl font-bold text-white">{stat.value}</p>
+              <p className="text-2xl font-bold text-white">
+                {stat.label === 'Water' ? (
+                  <span className="flex items-center gap-2">
+                    {stat.value} 
+                    <span className="text-xs bg-sky-500/20 text-sky-400 px-2 py-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
+                      + Add
+                    </span>
+                  </span>
+                ) : stat.value}
+              </p>
               <p className="text-xs text-slate-500 mt-1">{stat.desc}</p>
             </div>
           </div>
